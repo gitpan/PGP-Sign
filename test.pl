@@ -1,4 +1,4 @@
-# $Id: test.pl,v 0.3 2000/02/06 22:34:02 eagle Exp $
+# $Id: test.pl,v 0.5 2001/08/17 06:53:13 eagle Exp $
 #
 # Test suite for the PGP::Sign Perl module.  Before make install is
 # performed, run tests with make test.  After make install, it should work
@@ -78,12 +78,17 @@ print 'not ' if ($signer ne 'testing' || PGP::Sign::pgp_error);
 print "ok 8\n";
 
 # 9 (check signature of munged data against unmunged data w/o MUNGE)
-# This signature is expected to not verify (it used to verify with older
-# versions of GnuPG but GnuPG was then modified to follow PGP in whitespace
-# handling). 
-$signer = pgp_verify ($signature, $version, @munged);
-print 'not ' if ($signer ne '' || PGP::Sign::pgp_error);
-print "ok 9\n";
+# Whether this signature verifies under GnuPG depends on the version of
+# GnuPG; GnuPG 1.0.2 and higher verify it, but GnuPG 1.0.1 doesn't.
+# Earlier versions do verify it.  This is a disagreement over how to
+# handle trailing whitespace when verifying signatures.
+if ($PGP::Sign::PGPSTYLE eq 'GPG') {
+    print "ok 9 # skip\n";
+} else {
+    $signer = pgp_verify ($signature, $version, @munged);
+    print 'not ' if ($signer ne '' || PGP::Sign::pgp_error);
+    print "ok 9\n";
+}
 
 # 10 (take data from a code ref)
 my $munger = sub { local $_ = shift @munged; s/ +$//; $_ };
