@@ -1,3 +1,11 @@
+Mon Aug 18 07:18:09 1997  Russ Allbery  <eagle@windlord.Stanford.EDU>
+
+	* Sign.pm: PGP::Sign 0.8 released.
+	
+	* Sign.pm (pgp_verify): Added a umask 077 (and restoration of
+	umask on completion) since we're creating temporary files.
+	(pgp_sign): Added a check to see if we got a signature at all.
+
 Fri Aug 15 02:37:34 1997  Russ Allbery  <eagle@windlord.Stanford.EDU>
 
 	* Sign.pm: PGP::Sign 0.7 released.

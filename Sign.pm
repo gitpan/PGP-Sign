@@ -1,5 +1,5 @@
 # PGP::Sign -- Create a PGP signature for data, securely.  -*- perl -*-
-# $Id: Sign.pm,v 0.7 1997/08/15 11:11:49 eagle Exp $
+# $Id: Sign.pm,v 0.8 1997/08/18 14:26:27 eagle Exp $
 #
 # Copyright 1997 by Russ Allbery <rra@stanford.edu>
 #
@@ -38,7 +38,7 @@ use IPC::Open3 qw(open3);
 use strict;
 use vars qw(@ERROR @EXPORT @EXPORT_OK @ISA $MUNGE $PGP $TMPDIR $VERSION);
 
-($VERSION = (split (' ', q$Revision: 0.7 $ ))[1]) =~ s/\.(\d)$/.0$1/;
+($VERSION = (split (' ', q$Revision: 0.8 $ ))[1]) =~ s/\.(\d)$/.0$1/;
 
 
 ############################################################################
@@ -204,7 +204,12 @@ sub pgp_sign {
 
     # Now, clean up the returned signature and return it, along with the
     # version number if desired.
-    1 while ((shift @signature) ne "-----BEGIN PGP MESSAGE-----\n");
+    while ((shift @signature) ne "-----BEGIN PGP MESSAGE-----\n") {
+        if (not @signature) {
+            @ERROR = ("No signature from PGP (command not found?)\n");
+            return undef;
+        }
+    }
     my $version;
     while ($signature[0] ne "\n") {
         ($version) = ((shift @signature) =~ /^Version:\s+(.*?)\s*$/);
@@ -237,6 +242,7 @@ sub pgp_verify {
     # signature, though, we don't have to do any data mangling, which makes
     # our lives much easier.  It would be nice to do this without having to
     # use temporary files.  Maybe with PGP 5.0.
+    my $umask = umask 077;
     my $filename = $TMPDIR . '/pgp' . time . '.' . $$;
     my $sigfile = new FileHandle "$filename.asc", O_WRONLY|O_EXCL|O_CREAT;
     unless ($sigfile) {
@@ -285,6 +291,7 @@ sub pgp_verify {
     close $pgp;
     undef @ERROR;
     unlink $filename, "$filename.asc";
+    umask $umask;
     $signer ? $signer : '';
 }
 
