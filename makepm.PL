@@ -1,5 +1,5 @@
 # makepm.PL -- Builds PGP/Sign.pm from PGP/Sign.in.  -*- perl -*-
-# $Id: makepm.PL,v 0.4 1999/02/10 08:39:39 eagle Exp $
+# $Id: makepm.PL,v 0.5 1999/06/13 19:46:56 eagle Exp $
 #
 # The main reason why we have this script is to figure out where PGP is on
 # the system and code that and the PGP style to use into PGP::Sign before we
@@ -97,8 +97,8 @@ for ($PGPS, $PGPV, $PGPSTYLE) { s/\\/\\\\/g; s/\'/\\\'/g }
 
 # Now, open our input file and create our output file, and then do the
 # necessary substitutions.
-open (IN, 'PGP/Sign.in') or die "Cannot open PGP/Sign.in: $!\n";
-open (OUT, '> PGP/Sign.pm') or die "Cannot open PGP/Sign.pm: $!\n";
+open (IN, 'Sign.in') or die "Cannot open Sign.in: $!\n";
+open (OUT, '> Sign.pm') or die "Cannot open Sign.pm: $!\n";
 while (<IN>) {
     if (/^\# @@ VERSION$/)     { print OUT $version }
     elsif (/^\# @@ PGPS$/)     { print OUT "\$PGPS = '$PGPS';\n" }
