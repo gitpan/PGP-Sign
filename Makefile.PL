@@ -1,5 +1,5 @@
 # Makefile.PL for PGP::Sign module  -*- perl -*-
-# $Id: Makefile.PL,v 0.11 2000/10/08 23:08:37 eagle Exp $
+# Makefile.PL,v 0.12 2004/08/05 05:27:36 eagle Exp
 use ExtUtils::MakeMaker;
 
 # The build process for PGP::Sign normally will attempt to find programs to
@@ -57,7 +57,8 @@ if ($pgps) {
 my @clean = map { 'data/' . $_ } qw(PGPMacBinaryMappings.txt PGPgroup.pgr
                                     PGPsdkPreferences pgp.cfg random_seed
                                     randseed.bin randseed.rnd
-                                    pubring-bak-1.pkr secring-bak-1.skr);
+                                    pubring-bak-1.pkr secring-bak-1.skr
+                                    trustdb.gpg);
 
 # Now actually build the Makefile.
 WriteMakefile (

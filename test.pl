@@ -1,4 +1,4 @@
-# $Id: test.pl,v 0.5 2001/08/17 06:53:13 eagle Exp $
+# test.pl,v 0.5 2001/08/17 06:53:13 eagle Exp
 #
 # Test suite for the PGP::Sign Perl module.  Before make install is
 # performed, run tests with make test.  After make install, it should work
