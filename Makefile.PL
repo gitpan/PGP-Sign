@@ -1,5 +1,5 @@
 # Makefile.PL for PGP::Sign module
-# $Id: Makefile.PL,v 0.1 1997/07/27 13:42:01 eagle Exp $
+# $Id: Makefile.PL,v 0.3 1998/07/05 10:45:36 eagle Exp $
 use ExtUtils::MakeMaker;
 WriteMakefile (NAME         => 'PGP::Sign',
 	       DISTNAME     => 'PGP-Sign',

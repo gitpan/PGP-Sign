@@ -1,4 +1,4 @@
-                          PGP::Sign version 0.08
+                          PGP::Sign version 0.09
                 (Create detached PGP signatures for data)
 
   Copyright 1997 by Russ Allbery <rra@stanford.edu>.  All rights reserved.
@@ -85,7 +85,13 @@ INSTALLATION
 THANKS
 
   To Andrew Gierth <andrew@erlenstar.demon.co.uk> for the inspiration and
-  motivation to write this and the reminder that PGPPASSFD existed.
+  motivation to write this and the reminder that PGPPASSFD existed, and
+  also for being one of the two people who caught the mistake I made with
+  $? and open3().
+
+  To Jon Ribbens <jon@oaktree.co.uk> for pointing out that $? isn't
+  guaranteed to contain the exit status of something called from open3()
+  unless you do a waitpid() for it first.
 
   To David Lawrence <tale@isc.org> and Greg Rose <ggr@usenix.org> for
   signcontrol and PGPMoose respectively, the motivating applications.

@@ -1,3 +1,11 @@
+Sun Jul  5 03:31:57 1998  Russ Allbery  <eagle@windlord.Stanford.EDU>
+
+	* Sign.pm: Fixed the way I was dealing with open3() file handles
+ 	and $?.  One needs to keep the PID and do an explicit waitpid(),
+ 	or the status you get may be something random.  Also cleaned
+ 	things up a little and explicitly set $/ in case our calling
+ 	program had it set to something odd.
+
 Mon Aug 18 07:18:09 1997  Russ Allbery  <eagle@windlord.Stanford.EDU>
 
 	* Sign.pm: PGP::Sign 0.8 released.
