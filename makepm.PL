@@ -1,5 +1,5 @@
 # makepm.PL -- Builds PGP/Sign.pm from PGP/Sign.in.  -*- perl -*-
-# $Id: makepm.PL,v 0.1 1998/11/26 11:04:01 eagle Exp $
+# $Id: makepm.PL,v 0.2 1998/12/02 10:11:47 eagle Exp $
 #
 # The main reason why we have this script is to figure out where PGP is on
 # the system and code that into PGP::Sign before we install the module.
@@ -51,7 +51,7 @@ EOM
 print 'Path to PGP [' . ($pgp || '/usr/local/bin/pgp') . ']: ';
 my $input = <STDIN>;
 chomp $input;
-$pgp = $pgp || $input || '/usr/local/bin/pgp';
+$pgp = $input || $pgp || '/usr/local/bin/pgp';
 print "\n";
 
 # Now, open our input file and create our output file, and then do the
