@@ -1,5 +1,5 @@
 # locale.t -- Test for PGP::Sign in the presence of locale.  -*- perl -*-
-# locale.t,v 1.1 2004/08/08 09:38:39 eagle Exp
+# $Id: locale.t 173 2007-04-27 23:51:24Z eagle $
 
 # Set the locale.  I use French for testing; this won't be a proper test
 # unless the locale is available on the local system, so hopefully this will
@@ -53,7 +53,7 @@ print "ok 4\n";
 
 # 5 (check an external PGP 2.6.2 signature, data from glob ref)
 if ($PGP::Sign::PGPSTYLE eq 'GPG') {
-    print "ok 5 # skip\n";
+    print "ok 5 # skip -- GnuPG doesn't have IDEA\n";
 } else {
     if (open (SIG, "$data/message.sig") && open (DATA, "$data/message")) {
         my @signature = <SIG>;
@@ -74,7 +74,7 @@ if ($PGP::Sign::PGPSTYLE eq 'GPG') {
 
 # 6 (check an external version three DSA signature, data from array ref)
 if ($PGP::Sign::PGPSTYLE eq 'PGP2') {
-    print "ok 6 # skip\n";
+    print "ok 6 # skip -- PGP 2 can't check DSA signatures\n";
 } else {
     if (open (SIG, "$data/message.asc")) {
         my @signature = <SIG>;
@@ -94,7 +94,7 @@ if ($PGP::Sign::PGPSTYLE eq 'PGP2') {
 
 # 7 (check an external version four DSA signature, data from FileHandle)
 if ($PGP::Sign::PGPSTYLE ne 'GPG') {
-    print "ok 7 # skip\n";
+    print "ok 7 # skip -- only GnuPG can verify version 4 signatures\n";
 } else {
     if (open (SIG, "$data/message.asc.v4")) {
         my @signature = <SIG>;

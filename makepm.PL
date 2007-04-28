@@ -1,10 +1,13 @@
 # makepm.PL -- Builds PGP/Sign.pm from PGP/Sign.in.  -*- perl -*-
-# makepm.PL,v 0.6 2000/02/12 12:23:26 eagle Exp
+# $Id: makepm.PL 172 2007-04-23 04:46:02Z eagle $
 #
 # The main reason why we have this script is to figure out where PGP is on
 # the system and code that and the PGP style to use into PGP::Sign before we
 # install the module.  While we're at it, we also pull in our version number
 # from a separate file to give us some flexibility in release numbering.
+
+# Unbuffer output, since we'll be prompting.
+$| = 1;
 
 # First, grab the line to set the version number, since we'll need to
 # substitute that in to PGP/Sign.pm when we build it.  It's the second line
